@@ -42,15 +42,14 @@
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
                                 @forelse($stock->flowers as $flower)
-                                    @dd($flower)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                            <a href="{{ route('flowers.show', ['stock' => $stock, 'flower' => $flower]) }}">
+                                            <a href="{{ route('flowers.show', ['stock' => $stock, 'flower' => $flower->id]) }}">
                                                 {{ $flower->name }}
                                             </a>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <a href="{{ route('flowers.show', ['stock' => $stock, 'flower' => $flower]) }}"
+                                            <a href="{{ route('flowers.show', ['stock' => $stock, 'flower' => $flower->id]) }}"
                                                class="text-blue-600 hover:text-blue-900 mb-2 mr-2">View</a>
                                             <a href="{{ route('flowers.edit', ['stock' => $stock, 'flower', $flower]) }}"
                                                class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Edit</a>

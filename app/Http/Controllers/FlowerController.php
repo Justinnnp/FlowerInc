@@ -56,21 +56,20 @@ class FlowerController extends Controller
      * @param Flower $flower
      * @return Application|Factory|View
      */
-    public function show(Flower $flower)
+    public function show(Stock $stock, Flower $flower)
     {
-        dd($flower);
-        return view('flowers.show', compact('flower'));
+        return view('flowers.show', compact('stock', 'flower'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param Flower $flower
-     * @return Response
+     * @return Application|Factory|View
      */
     public function edit(Flower $flower)
     {
-        //
+        return view('flowers.edit', ['flower' => $flower]);
     }
 
     /**

@@ -1,14 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Show Task
+            Show Flower
         </h2>
     </x-slot>
 
     <div>
         <div class="max-w-6xl mx-auto py-10 sm:px-6 lg:px-8">
             <div class="block mb-8">
-                <a href="{{ route('flowers.index', compact('flower')) }}"
+                <a href="{{ route('flowers.index', ['stock' => $stock, 'flower' => $flower])}}"
                    class="bg-gray-200 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded">Back to list</a>
             </div>
             <div class="flex flex-col">
@@ -28,10 +28,28 @@
                                 <tr class="border-b">
                                     <th scope="col"
                                         class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Photo URL
+                                    </th>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
+                                        {{ $flower->photo_url }}
+                                    </td>
+                                </tr>
+                                <tr class="border-b">
+                                    <th scope="col"
+                                        class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Name
                                     </th>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
                                         {{ $flower->name }}
+                                    </td>
+                                </tr>
+                                <tr class="border-b">
+                                    <th scope="col"
+                                        class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Updated At
+                                    </th>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
+                                        {{ $flower->updated_at->diffForHumans() }}
                                     </td>
                                 </tr>
                             </table>
@@ -40,7 +58,7 @@
                 </div>
             </div>
             <div class="block mt-8">
-                <a href="{{ route('flowers.index', compact('flower')) }}"
+                <a href="{{ route('flowers.index', ['stock' => $stock, 'flower' => $flower]) }}"
                    class="bg-gray-200 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded">Back to list</a>
             </div>
         </div>
