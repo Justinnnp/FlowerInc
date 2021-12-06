@@ -101,6 +101,7 @@ class StockController extends Controller
     {
         $stock->delete();
         $stock->flowers()->delete();
+        $stock->flowers()->detach();
 
         return redirect()->route('stocks.index');
     }
