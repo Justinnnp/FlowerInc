@@ -14,6 +14,6 @@ class Stock extends Model
 
     public function flowers(): BelongsToMany
     {
-        return $this->belongsToMany(Flower::class);
+        return $this->belongsToMany(Flower::class)->withPivot('total');
     }
 }

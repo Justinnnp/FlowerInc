@@ -26,6 +26,13 @@
                             @error('photo_url')
                             <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
+                            <label for="total" class="block font-medium text-sm text-gray-700">total</label>
+                            <input type="text" name="total" id="total" type="text"
+                                   class="form-input rounded-md shadow-sm mt-1 block w-full"
+                                   value="{{ old('total', '') }}"/>
+                            @error('total')
+                            <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6">

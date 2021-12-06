@@ -16,6 +16,7 @@ class CreateFlowerStocksTable extends Migration
         Schema::create('flower_stock', function (Blueprint $table) {
             $table->integer('flower_id')->unsigned();
             $table->integer('stock_id')->unsigned();
+            $table->integer('total');
             $table->foreign('flower_id')->references('id')->on('flowers')->onDelete('cascade');
             $table->foreign('stock_id')->references('id')->on('stocks')->onDelete('cascade');
         });

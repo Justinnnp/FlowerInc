@@ -45,7 +45,7 @@ class FlowerController extends Controller
     {
         $flower = Flower::create($request->validate(['name' => 'required|string', 'photo_url' => 'required|string']));
 
-        $stock->flowers()->save($flower);
+        $flower->stocks()->attach($stock, $request->validate(['total' => 'required|integer']));
 
         return redirect()->route('flowers.index', ['stock' => $stock]);
     }
@@ -53,6 +53,7 @@ class FlowerController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Stock $stock
      * @param Flower $flower
      * @return Application|Factory|View
      */
@@ -75,7 +76,7 @@ class FlowerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \App\Http\Requests\UpdateFlowerRequest $request
+     * @param UpdateFlowerRequest $request
      * @param Flower $flower
      * @return Response
      */
