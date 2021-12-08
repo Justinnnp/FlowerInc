@@ -28,19 +28,19 @@
                                 <tr class="border-b">
                                     <th scope="col"
                                         class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Photo URL
+                                        Name
                                     </th>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
-                                        {{ $flower->photo_url }}
+                                        {{ $flower->name }}
                                     </td>
                                 </tr>
                                 <tr class="border-b">
                                     <th scope="col"
                                         class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Name
+                                        Total
                                     </th>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
-                                        {{ $flower->name }}
+                                        {{ $flower->pivot }}
                                     </td>
                                 </tr>
                                 <tr class="border-b">
@@ -66,10 +66,7 @@
                     </div>
                 </div>
             </div>
-            <div class="block mt-8">
-                <a href="{{ route('flowers.index', ['stock' => $stock, 'flower' => $flower]) }}"
-                   class="bg-gray-200 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded">Back to list</a>
-            </div>
+            <img src="{{ asset('storage/images/' . $flower->photo_url) }}" alt="weep">
         </div>
     </div>
 </x-app-layout>

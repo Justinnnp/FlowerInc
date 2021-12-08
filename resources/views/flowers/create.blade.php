@@ -8,7 +8,7 @@
 
         <div class="max-w-4xl mx-auto py-10 sm:px-6 lg:px-8">
             <div class="mt-5 md:mt-0 md:col-span-2">
-                <form method="post" action="{{ route('flowers.store', ['stock' => $stock]) }}">
+                <form method="post" action="{{ route('flowers.store', ['stock' => $stock]) }}" enctype="multipart/form-data">
                     @csrf
                     <div class="shadow overflow-hidden sm:rounded-md">
                         <div class="px-4 py-5 bg-white sm:p-6">
@@ -20,7 +20,7 @@
                             <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                             <label for="photo_url" class="block font-medium text-sm text-gray-700">Photo-url</label>
-                            <input type="text" name="photo_url" id="photo_url" type="text"
+                            <input type="file" name="photo_url" id="photo_url" type="text"
                                    class="form-input rounded-md shadow-sm mt-1 block w-full"
                                    value="{{ old('photo_url', '') }}"/>
                             @error('photo_url')

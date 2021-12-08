@@ -43,7 +43,13 @@ class FlowerController extends Controller
      */
     public function store(StoreFlowerRequest $request, Stock $stock): RedirectResponse
     {
-        $flower = Flower::create($request->validate(['name' => 'required|string', 'photo_url' => 'required|string']));
+        $request->file('photo_url')->storePublicly('public/images');
+
+        $photo_url = $request->file('photo_url')->hashName();
+        $flower = new Flower;
+        $flower->name = $request->name;
+        $flower->photo_url = $photo_url;
+        $flower->save();
 
         $flower->stocks()->attach($stock, $request->validate(['total' => 'required|integer']));
 
@@ -68,9 +74,9 @@ class FlowerController extends Controller
      * @param Flower $flower
      * @return Application|Factory|View
      */
-    public function edit(Flower $flower)
+    public function edit(Stock $stock, Flower $flower)
     {
-        return view('flowers.edit', ['flower' => $flower]);
+        return view('flowers.edit', ['stock' => $stock, 'flower' => $flower]);
     }
 
     /**
@@ -80,7 +86,7 @@ class FlowerController extends Controller
      * @param Flower $flower
      * @return Response
      */
-    public function update(UpdateFlowerRequest $request, Flower $flower)
+    public function update(UpdateFlowerRequest $request, Flower $flower): Response
     {
         //
     }
@@ -88,11 +94,15 @@ class FlowerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param Stock $stock
      * @param Flower $flower
-     * @return Response
+     * @return RedirectResponse
      */
-    public function destroy(Flower $flower)
+    public function destroy(Stock $stock, Flower $flower): RedirectResponse
     {
-        //
+
+        $flower->delete();
+
+        return redirect()->route('flowers.index', ['stock' => $stock, 'flower' => $flower]);
     }
 }

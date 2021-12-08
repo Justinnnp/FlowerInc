@@ -51,10 +51,10 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <a href="{{ route('flowers.show', ['stock' => $stock, 'flower' => $flower->id]) }}"
                                                class="text-blue-600 hover:text-blue-900 mb-2 mr-2">View</a>
-                                            <a href="{{ route('flowers.edit', ['stock' => $stock, 'flower', $flower]) }}"
+                                            <a href="{{ route('flowers.edit', ['stock' => $stock, 'flower', $flower->id]) }}"
                                                class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Edit</a>
                                             <form class="inline-block"
-                                                  action="{{ route('flowers.destroy', ['stock' => $stock, 'flower', $flower]) }}"
+                                                  action="{{ route('flowers.destroy', ['stock' => $stock, 'flower' => $flower]) }}"
                                                   method="POST"
                                                   onsubmit="return confirm('Are you sure?');">
                                                 @csrf

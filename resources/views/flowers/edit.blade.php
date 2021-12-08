@@ -8,15 +8,21 @@
     <div>
         <div class="max-w-4xl mx-auto py-10 sm:px-6 lg:px-8">
             <div class="mt-5 md:mt-0 md:col-span-2">
-                <form method="post" action="{{ route('stocks.update', $stock->id) }}">
+                <form method="post" action="{{ route('flowers.update', $flower->id) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="shadow overflow-hidden sm:rounded-md">
                         <div class="px-4 py-5 bg-white sm:p-6">
                             <label for="description" class="block font-medium text-sm text-gray-700">Description</label>
                             <input type="text" name="name" id="name" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full"
-                                   value="{{ old('name', $stock->name) }}" />
+                                   value="{{ old('name', $flower->name) }}" />
                             @error('name')
+                            <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                            <label for="description" class="block font-medium text-sm text-gray-700">Photo</label>
+                            <input type="text" name="photo_url" id="photo_url" type="file" class="form-input rounded-md shadow-sm mt-1 block w-full"
+                                   value="{{ old('photo_url', $flower->photo_url) }}" />
+                            @error('photo_url')
                             <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
