@@ -15,8 +15,26 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::resource('stocks', StockController::class)->middleware(['auth:sanctum', 'verified']);
 
-Route::get('/stocks/{stock}/flowers', [StockController::class, 'flowers'])
-    ->name('stock.flowers')
-    ->middleware(['auth:sanctum', 'verified']);
+//flowers
 
-Route::resource('flowers', FlowerController::class)->middleware(['auth:sanctum', 'verified']);
+Route::get('/flowers', [FlowerController::class, 'index'])->name('flowers.index')->middleware(['auth:sanctum', 'verified']);
+
+Route::get('/flowers/{flower}', [FlowerController::class, 'show'])->name('flowers.show')->middleware(['auth:sanctum', 'verified']);
+
+Route::get('/flowers/{flower}/edit', [FlowerController::class, 'edit'])->name('flowers.edit')->middleware(['auth:sanctum', 'verified']);
+
+Route::post('/flowers/{flower}/update', [FlowerController::class, 'update'])->name('flowers.update')->middleware(['auth:sanctum', 'verified']);
+
+Route::post('/flowers/{flower}/delete', [StockController::class, 'destroy'])->name('flowers.destroy')->middleware(['auth:sanctum', 'verified']);
+
+//stocks
+
+Route::get('/stocks/{stock}/flowers/create', [FlowerController::class, 'create'])->name('flowers.create')->middleware(['auth:sanctum', 'verified']);
+
+Route::post('/stocks/{stock}/flowers/store', [FlowerController::class, 'store'])->name('flowers.store')->middleware(['auth:sanctum', 'verified']);
+
+Route::get('/stocks/{stock}/flowers', [StockController::class, 'flowers'])->name('stock.flowers')->middleware(['auth:sanctum', 'verified']);
+
+
+
+//Route::resource('flowers', FlowerController::class)->middleware(['auth:sanctum', 'verified']);

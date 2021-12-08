@@ -12,7 +12,8 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="block mb-8">
-                <a href="{{ route('flowers.create') }}"
+                @dd($stock)
+                <a href="{{ route('flowers.create', compact('stock')) }}"
                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add flower</a>
             </div>
             <div class="flex flex-col">

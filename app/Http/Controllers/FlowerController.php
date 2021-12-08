@@ -43,7 +43,6 @@ class FlowerController extends Controller
      */
     public function store(StoreFlowerRequest $request, Stock $stock): RedirectResponse
     {
-        dd($stock);
         $request->file('photo_url')->storePublicly('public/images');
 
         $photo_url = $request->file('photo_url')->hashName();
@@ -54,7 +53,7 @@ class FlowerController extends Controller
 
         $flower->stocks()->attach($stock, $request->validate(['total' => 'required|integer']));
 
-        return redirect()->route('flowers.index', ['stock' => $stock]);
+        return redirect()->route('stock.flowers', ['stock' => $stock]);
     }
 
     /**
@@ -74,9 +73,9 @@ class FlowerController extends Controller
      * @param Flower $flower
      * @return Application|Factory|View
      */
-    public function edit(Stock $stock, Flower $flower)
+    public function edit(Flower $flower)
     {
-        return view('flowers.edit', ['stock' => $stock, 'flower' => $flower]);
+        return view('flowers.edit', ['flower' => $flower]);
     }
 
     /**
@@ -84,11 +83,14 @@ class FlowerController extends Controller
      *
      * @param UpdateFlowerRequest $request
      * @param Flower $flower
-     * @return Response
+     * @return RedirectResponse
      */
-    public function update(UpdateFlowerRequest $request, Flower $flower): Response
+    public function update(UpdateFlowerRequest $request, Flower $flower): RedirectResponse
     {
-        //
+        $stock = Stock::all()->first;
+        $flower->update($request->all());
+
+        return redirect()->route('stock.flowers', compact('stock'));
     }
 
     /**

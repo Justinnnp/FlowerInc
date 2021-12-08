@@ -51,7 +51,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <a href="{{ route('flowers.show', ['flower' => $flower]) }}"
                                                class="text-blue-600 hover:text-blue-900 mb-2 mr-2">View</a>
-                                            <a href="{{ route('flowers.edit', ['flower', $flower->id]) }}"
+                                            <a href="{{ route('flowers.edit', ['flower' => $flower]) }}"
                                                class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Edit</a>
                                             <form class="inline-block"
                                                   action="{{ route('flowers.destroy', ['flower' => $flower]) }}"
