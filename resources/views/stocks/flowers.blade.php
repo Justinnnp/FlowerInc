@@ -12,7 +12,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="block mb-8">
-                <a href="{{ route('flowers.create') }}"
+                <a href="{{ route('flowers.create', compact('stock')) }}"
                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add flower</a>
             </div>
             <div class="flex flex-col">
@@ -44,12 +44,12 @@
                                 @forelse($stock->flowers as $flower)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                            <a href="{{ route('flowers.show', ['flower' => $flower->id]) }}">
+                                            <a href="{{ route('flowers.show', ['flower' => $flower]) }}">
                                                 {{ $flower->name }}
                                             </a>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <a href="{{ route('flowers.show', ['flower' => $flower->id]) }}"
+                                            <a href="{{ route('flowers.show', ['flower' => $flower]) }}"
                                                class="text-blue-600 hover:text-blue-900 mb-2 mr-2">View</a>
                                             <a href="{{ route('flowers.edit', ['flower', $flower->id]) }}"
                                                class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Edit</a>

@@ -43,6 +43,7 @@ class FlowerController extends Controller
      */
     public function store(StoreFlowerRequest $request, Stock $stock): RedirectResponse
     {
+        dd($stock);
         $request->file('photo_url')->storePublicly('public/images');
 
         $photo_url = $request->file('photo_url')->hashName();
@@ -59,13 +60,12 @@ class FlowerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Stock $stock
      * @param Flower $flower
      * @return Application|Factory|View
      */
-    public function show(Stock $stock, Flower $flower)
+    public function show(Flower $flower)
     {
-        return view('flowers.show', compact('stock', 'flower'));
+        return view('flowers.show', compact('flower'));
     }
 
     /**

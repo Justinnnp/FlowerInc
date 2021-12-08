@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreStockRequest;
 use App\Http\Requests\UpdateStockRequest;
+use App\Models\Flower;
 use App\Models\Stock;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -104,5 +105,16 @@ class StockController extends Controller
         $stock->flowers()->detach();
 
         return redirect()->route('stocks.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Stock $stock
+     * @return Application|Factory|View
+     */
+    public function flowers(Stock $stock)
+    {
+        return view('stocks.flowers', compact('stock'));
     }
 }

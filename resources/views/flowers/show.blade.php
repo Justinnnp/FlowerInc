@@ -4,12 +4,13 @@
             Show Flower
         </h2>
     </x-slot>
-
     <div>
         <div class="max-w-6xl mx-auto py-10 sm:px-6 lg:px-8">
             <div class="block mb-8">
-                <a href="{{ route('flowers.index', ['stock' => $stock, 'flower' => $flower])}}"
+                @foreach($flower->stocks as $stock)
+                <a href="{{ route('stock.flowers', ['stock' => $stock]) }}"
                    class="bg-gray-200 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded">Back to list</a>
+                @endforeach
             </div>
             <div class="flex flex-col">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
