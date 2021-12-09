@@ -8,20 +8,29 @@
     <div>
         <div class="max-w-4xl mx-auto py-10 sm:px-6 lg:px-8">
             <div class="mt-5 md:mt-0 md:col-span-2">
-                <form method="post" action="{{ route('flowers.update', ['flower' => $flower]) }}" enctype="multipart/form-data">
+                <form method="post" action="{{ route('flowers.update', ['stock' => $stock, 'flower' => $flower]) }}" enctype="multipart/form-data">
                     @csrf
                     <div class="shadow overflow-hidden sm:rounded-md">
                         <div class="px-4 py-5 bg-white sm:p-6">
-                            <label for="description" class="block font-medium text-sm text-gray-700">Description</label>
-                            <input type="text" name="name" id="name" class="form-input rounded-md shadow-sm mt-1 block w-full"
-                                   value="{{ old('name', $flower->name) }}" />
+                            <label for="name" class="block font-medium text-sm text-gray-700">name</label>
+                            <input type="text" name="name" id="name"
+                                   class="form-input rounded-md shadow-sm mt-1 block w-full"
+                                   value="{{ old('name', $flower->name) }}"/>
                             @error('name')
                             <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
-                            <label for="description" class="block font-medium text-sm text-gray-700">Photo</label>
-                            <input type="file" name="photo_url" id="photo_url" class="form-input rounded-md shadow-sm mt-1 block w-full"
-                                   value="{{ old('photo_url', $flower->photo_url) }}" />
+                            <label for="photo_url" class="block font-medium text-sm text-gray-700">Photo-url</label>
+                            <input type="file" name="photo_url" id="photo_url"
+                                   class="form-input rounded-md shadow-sm mt-1 block w-full"
+                                   value="{{ old('photo_url', '') }}"/>
                             @error('photo_url')
+                            <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                            <label for="total" class="block font-medium text-sm text-gray-700">total</label>
+                            <input type="number" name="total" id="total"
+                                   class="form-input rounded-md shadow-sm mt-1 block w-full"
+                                   value="{{ old('total', '') }}"/>
+                            @error('total')
                             <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>

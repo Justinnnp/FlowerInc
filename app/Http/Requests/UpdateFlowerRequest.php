@@ -25,7 +25,8 @@ class UpdateFlowerRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string',
+            'total' => 'required|integer'
         ];
     }
 }

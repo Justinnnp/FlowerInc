@@ -50,7 +50,7 @@ class StockController extends Controller
             return redirect()->route('stocks.index')->with('status', 'Deze stock bestaat al.');
         }
 
-        return redirect()->route('stocks.index');
+        return redirect()->route('stocks.index')->with('status', 'Stock succesvol aangemaakt.');
     }
 
     /**
@@ -89,7 +89,7 @@ class StockController extends Controller
         }
         $stock->update($request->all());
 
-        return redirect()->route('stocks.index');
+        return redirect()->route('stocks.index')->with('status', 'stock succesvol aangepast.');
     }
 
     /**
@@ -104,7 +104,7 @@ class StockController extends Controller
         $stock->flowers()->delete();
         $stock->flowers()->detach();
 
-        return redirect()->route('stocks.index');
+        return redirect()->route('stocks.index')->with('status', 'Stock Succesvol verwijderd.');
     }
 
     /**

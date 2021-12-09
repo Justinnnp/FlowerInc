@@ -9,8 +9,9 @@ use App\Models\Stock;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\File;
 
 class FlowerController extends Controller
 {
@@ -43,17 +44,21 @@ class FlowerController extends Controller
      */
     public function store(StoreFlowerRequest $request, Stock $stock): RedirectResponse
     {
-        $request->file('photo_url')->storePublicly('public/images');
+        try {
+            $request->file('photo_url')->storePublicly('public/images');
 
-        $photo_url = $request->file('photo_url')->hashName();
-        $flower = new Flower;
-        $flower->name = $request->name;
-        $flower->photo_url = $photo_url;
-        $flower->save();
+            $photo_url = $request->file('photo_url')->hashName();
+            $flower = new Flower;
+            $flower->name = $request->name;
+            $flower->photo_url = $photo_url;
+            $flower->save();
 
-        $flower->stocks()->attach($stock, $request->validate(['total' => 'required|integer']));
+            $flower->stocks()->attach($stock, $request->validate(['total' => 'required|integer']));
+        } catch (QueryException $e) {
+            return redirect()->route('stock.flowers', ['stock' => $stock])->with('status', 'Er is iets mis gegaan tijdens het aanmaken van deze bloem.');
+        }
 
-        return redirect()->route('stock.flowers', ['stock' => $stock]);
+        return redirect()->route('stock.flowers', ['stock' => $stock])->with('status', 'Bloem succesvol toegevoegd');
     }
 
     /**
@@ -73,24 +78,41 @@ class FlowerController extends Controller
      * @param Flower $flower
      * @return Application|Factory|View
      */
-    public function edit(Flower $flower)
+    public function edit(Stock $stock, Flower $flower)
     {
-        return view('flowers.edit', ['flower' => $flower]);
+        return view('flowers.edit', ['stock' => $stock, 'flower' => $flower]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateFlowerRequest $request
+     * @param Stock $stock
      * @param Flower $flower
      * @return RedirectResponse
      */
-    public function update(UpdateFlowerRequest $request, Flower $flower): RedirectResponse
+    public function update(UpdateFlowerRequest $request, Stock $stock, Flower $flower): RedirectResponse
     {
-        $stock = Stock::all()->first;
-        $flower->update($request->all());
+        try {
+            $path = 'storage/images/' . $flower->photo_url;
+            if (File::exists($path)) {
+                File::delete($path);
+                $flower->stocks()->detach($stock, $stock->id);
+            }
+            $request->file('photo_url')->storePublicly('public/images');
 
-        return redirect()->route('stock.flowers', compact('stock'));
+            $flower->fill($request->validated());
+
+            $flower->stocks()->attach($stock->id, $request->safe()->only('total'));
+
+            $flower->save();
+
+            return redirect()->route('stock.flowers', ['stock' => $stock])->with('status', 'succesvol bewerkt');
+
+        } catch (QueryException $e) {
+
+            return redirect()->route('stock.flowers', ['stock' => $stock])->with('status', 'Er is iets mis gegaan tijdens het bewerken van deze bloem.');
+        }
     }
 
     /**
@@ -102,9 +124,17 @@ class FlowerController extends Controller
      */
     public function destroy(Stock $stock, Flower $flower): RedirectResponse
     {
+        try {
+            $path = 'storage/images/' . $flower->photo_url;
+            if (File::exists($path)) {
+                File::delete($path);
+            }
+            $flower->stocks()->detach($stock, $flower->id);
+            $flower->delete();
+        } catch (QueryException $e) {
+            return redirect()->route('stock.flowers', ['stock' => $stock])->with('status', 'Er ging wat fout tijdens het verwijderen van de bloem.');
+        }
 
-        $flower->delete();
-
-        return redirect()->route('flowers.index', ['stock' => $stock, 'flower' => $flower]);
+        return redirect()->route('stock.flowers', ['stock' => $stock])->with('status', 'Bloem succesvol verwijderd.');
     }
 }
