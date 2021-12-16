@@ -35,8 +35,5 @@ Route::post('/stocks/{stock}/flowers/{flower}/update', [FlowerController::class,
 Route::delete('/stocks/{stock}/flowers/{flower}/delete', [FlowerController::class, 'destroy'])->name('flowers.destroy')->middleware(['auth:sanctum', 'verified']);
 
 
-Route::get('/stocks/{stock}/flowers', [StockController::class, 'flowers'])->name('stock.flowers')->middleware(['auth:sanctum', 'verified']);
-
-
 
 //Route::resource('flowers', FlowerController::class)->middleware(['auth:sanctum', 'verified']);

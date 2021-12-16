@@ -20,9 +20,10 @@ class FlowerController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function index(Stock $stock)
+    public function index()
     {
-        return view('flowers.index', compact('stock'));
+        $flowers = Flower::get();
+        return view('flowers.index', ['flowers' => $flowers]);
     }
 
     /**
@@ -58,7 +59,7 @@ class FlowerController extends Controller
             return redirect()->route('stock.flowers', ['stock' => $stock])->with('status', 'Er is iets mis gegaan tijdens het aanmaken van deze bloem.');
         }
 
-        return redirect()->route('stock.flowers', ['stock' => $stock])->with('status', 'Bloem succesvol toegevoegd');
+        return redirect()->route('stocks.show', ['stock' => $stock])->with('status', 'Bloem succesvol toegevoegd');
     }
 
     /**
@@ -94,6 +95,7 @@ class FlowerController extends Controller
     public function update(UpdateFlowerRequest $request, Stock $stock, Flower $flower): RedirectResponse
     {
         try {
+            $validated = $request->validated();
             $path = 'storage/images/' . $flower->photo_url;
             if (File::exists($path)) {
                 File::delete($path);
@@ -101,9 +103,12 @@ class FlowerController extends Controller
             }
             $request->file('photo_url')->storePublicly('public/images');
 
-            $flower->fill($request->validated());
+            $photo_url = $request->file('photo_url')->hashName();
 
-            $flower->stocks()->attach($stock->id, $request->safe()->only('total'));
+            $flower->photo_url = $photo_url;
+            $flower->fill($validated);
+
+            $flower->stocks()->attach($stock->id, ['total' => $validated['total']]);
 
             $flower->save();
 

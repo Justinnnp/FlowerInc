@@ -44,12 +44,12 @@
                                 @forelse($stocks as $stock)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                            <a href="{{ route('stock.flowers', compact('stock')) }}">
+                                            <a href="{{ route('stocks.show', $stock) }}">
                                                 {{ $stock->name }}
                                             </a>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <a href="{{ route('stocks.show', $stock->id) }}"
+                                            <a href="{{ route('stocks.show', $stock) }}"
                                                class="text-blue-600 hover:text-blue-900 mb-2 mr-2">View</a>
                                             <a href="{{ route('stocks.edit', $stock->id) }}"
                                                class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Edit</a>

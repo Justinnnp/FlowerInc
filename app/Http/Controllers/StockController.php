@@ -56,12 +56,12 @@ class StockController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Stock $stock
      * @return Application|Factory|View
      */
     public function show(Stock $stock)
     {
-        return view('stocks.show', compact('stock'));
+        $stock = Stock::orderBy('created_at', 'DESC')->get();
+        return view('stocks.show', ['stock' => $stock[0]]);
     }
 
     /**

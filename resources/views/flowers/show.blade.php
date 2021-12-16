@@ -1,18 +1,16 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Show Flower
+            Stock detail - {{ $flower->name }}
         </h2>
     </x-slot>
+
     <div>
         <div class="max-w-6xl mx-auto py-10 sm:px-6 lg:px-8">
-            <div class="block mb-8">
-                @foreach($flower->stocks as $stock)
-                <a href="{{ route('stock.flowers', ['stock' => $stock]) }}"
-                   class="bg-gray-200 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded">Back to list</a>
-                @endforeach
-            </div>
             <div class="flex flex-col">
+                @if(Session::has('status'))
+                    <h1 class="text-red-500 p-10 font-medium">{{ Session::get('status') }}</h1>
+                @endif
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                         <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -41,7 +39,7 @@
                                         Total
                                     </th>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
-                                        {{ $flower->pivot }}
+                                        {{ $flower }}
                                     </td>
                                 </tr>
                                 <tr class="border-b">
@@ -62,12 +60,22 @@
                                         {{ $flower->created_at->diffForHumans() }}
                                     </td>
                                 </tr>
+                                <tr class="border-b">
+                                    <th scope="col"
+                                        class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Image
+                                    </th>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
+                                        <img src="{{ asset('storage/images/' . $flower->photo_url) }}" alt="weep">
+                                    </td>
+                                </tr>
                             </table>
+
                         </div>
                     </div>
                 </div>
             </div>
-            <img src="{{ asset('storage/images/' . $flower->photo_url) }}" alt="weep">
+            <br>
         </div>
     </div>
 </x-app-layout>
