@@ -11,10 +11,12 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 class FlowerController extends Controller
 {
+    protected $total;
     /**
      * Display a listing of the resource.
      *
@@ -22,8 +24,10 @@ class FlowerController extends Controller
      */
     public function index()
     {
-        $flowers = Flower::get();
-        return view('flowers.index', ['flowers' => $flowers]);
+//        $total =  DB::table('flower_stock')->select('total')->where('flower_id', $flower->id)->first();
+
+        $flowers = Flower::all();
+        return view('stocks.show', ['flowers' => $flowers]);
     }
 
     /**
@@ -81,7 +85,9 @@ class FlowerController extends Controller
      */
     public function edit(Stock $stock, Flower $flower)
     {
-        return view('flowers.edit', ['stock' => $stock, 'flower' => $flower]);
+        $total =  DB::table('flower_stock')->select('total')->where('flower_id', $flower->id)->first();
+
+        return view('flowers.edit', ['stock' => $stock, 'flower' => $flower, 'total' => $total]);
     }
 
     /**
@@ -112,11 +118,10 @@ class FlowerController extends Controller
 
             $flower->save();
 
-            return redirect()->route('stock.flowers', ['stock' => $stock])->with('status', 'succesvol bewerkt');
+            return redirect()->route('stocks.show', ['stock' => $stock])->with('status', 'succesvol bewerkt');
 
         } catch (QueryException $e) {
-
-            return redirect()->route('stock.flowers', ['stock' => $stock])->with('status', 'Er is iets mis gegaan tijdens het bewerken van deze bloem.');
+            return redirect()->route('stocks.show', ['stock' => $stock])->with('status', 'Er is iets mis gegaan tijdens het bewerken van deze bloem.');
         }
     }
 
@@ -137,9 +142,9 @@ class FlowerController extends Controller
             $flower->stocks()->detach($stock, $flower->id);
             $flower->delete();
         } catch (QueryException $e) {
-            return redirect()->route('stock.flowers', ['stock' => $stock])->with('status', 'Er ging wat fout tijdens het verwijderen van de bloem.');
+            return redirect()->route('stocks.show', ['stock' => $stock])->with('status', 'Er ging wat fout tijdens het verwijderen van de bloem.');
         }
 
-        return redirect()->route('stock.flowers', ['stock' => $stock])->with('status', 'Bloem succesvol verwijderd.');
+        return redirect()->route('stocks.show', ['stock' => $stock])->with('status', 'Bloem succesvol verwijderd.');
     }
 }

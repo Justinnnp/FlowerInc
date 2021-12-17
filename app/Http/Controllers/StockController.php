@@ -60,8 +60,7 @@ class StockController extends Controller
      */
     public function show(Stock $stock)
     {
-        $stock = Stock::orderBy('created_at', 'DESC')->get();
-        return view('stocks.show', ['stock' => $stock[0]]);
+        return view('stocks.show', ['stock' => $stock]);
     }
 
     /**

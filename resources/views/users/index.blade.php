@@ -1,19 +1,19 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Stocks') }}
+            {{ __('Users') }}
         </h2>
     </x-slot>
     @if(Session::has('status'))
-        <div class="text-center p-6 max-w-screen bg-gray-300">
+        <div class="text-center p-6 max-w-screen bg-red-200">
             <h1 class="text-white">{{ Session::get('status') }}</h1>
         </div>
     @endif
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="block mb-8">
-                <a href="{{ route('stocks.create') }}"
-                   class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add stock</a>
+                <a href="{{ route('users.create') }}"
+                   class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add user</a>
             </div>
             <div class="flex flex-col">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -32,6 +32,14 @@
                                     </th>
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Is Admin
+                                    </th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Email
+                                    </th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Updated At
                                     </th>
                                     <th scope="col"
@@ -41,20 +49,20 @@
                                 </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
-                                @forelse($stocks as $stock)
+                                @forelse($users as $user)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                            <a href="{{ route('stocks.show', compact('stock')) }}">
-                                                {{ $stock->name }}
+                                            <a href="{{ route('users.show', $user) }}">
+                                                {{ $user->name }}
                                             </a>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <a href="{{ route('stocks.show', $stock) }}"
+                                            <a href="{{ route('users.show', $user) }}"
                                                class="text-blue-600 hover:text-blue-900 mb-2 mr-2">View</a>
-                                            <a href="{{ route('stocks.edit', $stock->id) }}"
+                                            <a href="{{ route('users.edit', $user) }}"
                                                class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Edit</a>
                                             <form class="inline-block"
-                                                  action="{{ route('stocks.destroy', $stock->id) }}" method="POST"
+                                                  action="{{ route('users.destroy', $user) }}" method="POST"
                                                   onsubmit="return confirm('Are you sure?');">
                                                 @csrf
                                                 @method('delete')
@@ -64,15 +72,21 @@
                                             </form>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            {{ $stock->updated_at->diffForHumans() }}
+                                            {{ $user->is_admin ? "Ja" : "Nee" }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            {{ $stock->created_at->diffForHumans() }}
+                                            {{ $user->email }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                            {{ $user->updated_at->diffForHumans() }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                            {{ $user->created_at->diffForHumans() }}
                                         </td>
                                     </tr>
                                 @empty
                                     <p>
-                                        No data found...
+                                        No users found...
                                     </p>
                                 @endforelse
                                 </tbody>

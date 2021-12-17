@@ -4,7 +4,6 @@
             Edit Flower
         </h2>
     </x-slot>
-
     <div>
         <div class="max-w-4xl mx-auto py-10 sm:px-6 lg:px-8">
             <div class="mt-5 md:mt-0 md:col-span-2">
@@ -29,7 +28,7 @@
                             <label for="total" class="block font-medium text-sm text-gray-700">total</label>
                             <input type="number" name="total" id="total"
                                    class="form-input rounded-md shadow-sm mt-1 block w-full"
-                                   value="{{ old('total', '') }}"/>
+                                   value="{{ old('total', $total->total) }}"/>
                             @error('total')
                             <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
