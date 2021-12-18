@@ -27,7 +27,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => 'admin',
-            'is_admin' => true,
+            'is_admin' => 1,
             'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('admin'),
@@ -38,7 +38,7 @@ class UserFactory extends Factory
     /**
      * Indicate that the model's email address should be unverified.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
     public function unverified()
     {
@@ -54,7 +54,7 @@ class UserFactory extends Factory
      *
      * @return $this
      */
-    public function withPersonalTeam()
+    public function withPersonalTeam(): UserFactory
     {
         if (! Features::hasTeamFeatures()) {
             return $this->state([]);

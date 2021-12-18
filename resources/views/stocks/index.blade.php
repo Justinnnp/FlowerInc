@@ -6,7 +6,7 @@
     </x-slot>
     @if(Session::has('status'))
         <div class="text-center p-6 max-w-screen bg-gray-300">
-            <h1 class="text-white">{{ Session::get('status') }}</h1>
+            <h1 class="text-blue-600">{{ Session::get('status') }}</h1>
         </div>
     @endif
     <div class="py-12">

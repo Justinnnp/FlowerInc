@@ -6,6 +6,11 @@
     </x-slot>
 
     <div>
+        @if(Session::has('status'))
+            <div class="text-center p-6 max-w-screen bg-gray-300">
+                <h1 class="text-blue-600">{{ Session::get('status') }}</h1>
+            </div>
+        @endif
         <div class="max-w-6xl mx-auto py-10 sm:px-6 lg:px-8">
             <div class="block mb-8">
                 <a href="{{ route('flowers.create', compact('stock')) }}"
@@ -14,9 +19,6 @@
                    class="bg-gray-200 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded">Back to list</a>
             </div>
             <div class="flex flex-col">
-                @if(Session::has('status'))
-                    <h1 class="text-red-500 p-10 font-medium">{{ Session::get('status') }}</h1>
-                @endif
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                         <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -75,7 +77,7 @@
                                         Total
                                     </th>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
-                                        {{ $total }}
+                                        {{ $flower->pivot->total }}
                                     </td>
                                 </tr>
                                 <tr class="border-b">

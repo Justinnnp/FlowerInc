@@ -18,13 +18,14 @@
                             @error('name')
                             <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
-                            <label for="photo_url" class="block font-medium text-sm text-gray-700">Photo-url</label>
+                            <label for="photo_url" class="block font-medium text-sm text-gray-700 text-xl mt-5 text-blue-600 opacity-50">upload photo <i class="fas fa-upload"></i></label>
                             <input type="file" name="photo_url" id="photo_url"
-                                   class="form-input rounded-md shadow-sm mt-1 block w-full"
+                                   class="form-input rounded-md shadow-sm mt-1 block w-full opacity-0"
                                    value="{{ old('photo_url', '') }}"/>
                             @error('photo_url')
                             <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
+                            <img src="{{ asset('storage/images/' . $flower->photo_url) }}" alt="weep">
                             <label for="total" class="block font-medium text-sm text-gray-700">total</label>
                             <input type="number" name="total" id="total"
                                    class="form-input rounded-md shadow-sm mt-1 block w-full"
