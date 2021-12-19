@@ -9,6 +9,8 @@ Deze webapplicatie is gemaakt om stocks bij te kunnen houden met bloemen daarin.
 
 - Clone de repository op een bestandslocatie naar keuze
 - Run een locale server voor mysql
+- Kopieer '.env.example', bewerk de naam naar: '.env' en vul de juiste gevens in
+- Maak een locale database: 'flowerinc' aan
 - php artisan migrate:fresh --seed
 - php artisan serve 
 - npm install
