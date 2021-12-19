@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\FlowerController;
 use App\Http\Controllers\StockController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -35,7 +34,5 @@ Route::get('/stocks/{stock}/flowers/{flower}/edit', [FlowerController::class, 'e
 Route::post('/stocks/{stock}/flowers/{flower}/update', [FlowerController::class, 'update'])->name('flowers.update')->middleware(['auth:sanctum', 'verified']);
 
 Route::delete('/stocks/{stock}/flowers/{flower}/delete', [FlowerController::class, 'destroy'])->name('flowers.destroy')->middleware(['auth:sanctum', 'verified']);
-
-Route::resource('users', UserController::class);
 
 //Route::resource('flowers', FlowerController::class)->middleware(['auth:sanctum', 'verified']);

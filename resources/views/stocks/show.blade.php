@@ -14,7 +14,7 @@
         <div class="max-w-6xl mx-auto py-10 sm:px-6 lg:px-8">
             <div class="block mb-8">
                 <a href="{{ route('flowers.create', compact('stock')) }}"
-                   class="bg-gray-200 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded">Add Flower</a>
+                   class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add Flower</a>
                 <a href="{{ route('stocks.index') }}"
                    class="bg-gray-200 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded">Back to list</a>
             </div>

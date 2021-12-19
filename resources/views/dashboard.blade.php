@@ -11,7 +11,6 @@
                 <h1 class="mb-2">Welkom {{ Auth::user()->name }}, leuk dat je er bent!</h1>
                 <button type="button" onclick="window.location='/'" class="text-blue-600 border-2 rounded p-2">Home</button>
                 <button type="button" onclick="window.location='{{ route("stocks.index") }}'" class="text-blue-600 border-2 rounded p-2">Stocks</button>
-                <button type="button" onclick="window.location='{{ route("users.index") }}'" class="text-blue-600 border-2 rounded p-2">Users</button>
             </div>
         </div>
     </div>
